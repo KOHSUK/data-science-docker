@@ -1,0 +1,34 @@
+FROM continuumio/miniconda3:latest
+
+RUN apt-get update && apt-get install -y \
+        protobuf-compiler \
+        sudo \
+    && apt clean \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY environment.yml /tmp/
+RUN conda env create -f /tmp/environment.yml \
+    && conda clean -afy \
+    && find /opt/conda/ -follow -type f -name '*.a' -delete \
+    && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+    && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
+    && rm /tmp/environment.yml
+
+ARG username
+ARG userid
+ARG env
+
+ARG home=/home/${username}
+ARG workdir=${home}
+
+RUN adduser ${username} --uid ${userid} --gecos '' --disabled-password \
+    && echo "${username} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${username} \
+    && chmod 0440 /etc/sudoers.d/${username}
+
+WORKDIR ${workdir}
+RUN chown ${username}:${username} ${workdir}
+
+USER ${username}
+WORKDIR ${workdir}
+
+ENV PATH /opt/conda/envs/${env}/bin:$PATH

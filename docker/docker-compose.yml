@@ -1,0 +1,23 @@
+version: "3"
+services:
+  data-science-env:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile.conda
+      args:
+        - username=kohsuk
+        - userid=1000
+        - env=data-science
+    container_name: data-science
+    image: kohsuk/data-science:latest
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: 50m
+    ports:
+      - "8888:8888"
+      - "6006:6006"
+    volumes:
+      - ../:/home/kohsuk
+    command: /opt/conda/envs/data-science/bin/jupyter notebook --ip='0.0.0.0' --port=8888 --no-browser
