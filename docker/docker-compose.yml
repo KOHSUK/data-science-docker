@@ -19,5 +19,4 @@ services:
       - "8888:8888"
       - "6006:6006"
     volumes:
-      - ../:/home/kohsuk
-    command: /opt/conda/envs/data-science/bin/jupyter notebook --ip='0.0.0.0' --port=8888 --no-browser
+      - ../:/home/kohsuk/data-science

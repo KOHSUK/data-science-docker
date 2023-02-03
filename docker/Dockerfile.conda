@@ -17,9 +17,8 @@ RUN conda env create -f /tmp/environment.yml \
 ARG username
 ARG userid
 ARG env
-
 ARG home=/home/${username}
-ARG workdir=${home}
+ARG workdir=${home}/${env}
 
 RUN adduser ${username} --uid ${userid} --gecos '' --disabled-password \
     && echo "${username} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${username} \

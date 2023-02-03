@@ -1,0 +1,7 @@
+[user]
+	name = Kosuke Kihara
+	email = kohsuk.tech@gmail.com
+[url "https://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:x-oauth-basic@github.com/"]
+	insteadOf = https://github.com/
+[credential]
+	helper = "!f() { /home/kohsuk/.vscode-server/bin/e2816fe719a4026ffa1ee0189dc89bdfdbafb164/node /tmp/vscode-remote-containers-b4505845d2aae38c2bb5e42c2fdc3db3437967ea.js git-credential-helper $*; }; f"
